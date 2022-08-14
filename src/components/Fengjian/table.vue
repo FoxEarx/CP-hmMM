@@ -14,9 +14,24 @@
     <el-table-column label="操作">
       <!-- <div v-if="TYPE === 1"> -->
       <template v-if="TYPE === 1" slot-scope="scope">
-        <el-button type="text" size="small">学科分类</el-button>
+        <el-button
+          type="text"
+          size="small"
+          @click="
+            $router.push(
+              '/subjects/directorys/?id=' +
+                scope.row.id +
+                '&' +
+                'name=' +
+                scope.row.subjectName
+            )
+          "
+          >学科分类</el-button
+        >
         <el-button type="text" size="small">学科标签</el-button>
-        <el-button type="text" size="small">修改</el-button>
+        <el-button type="text" size="small" @click="$emit('Edit', scope.row)"
+          >修改</el-button
+        >
         <el-button type="text" size="small" @click="open(scope.row.id)"
           >删除</el-button
         >

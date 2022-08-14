@@ -56,6 +56,7 @@
         :pageIndex="page"
         :pageSize="pagesize"
         @Delete="Delete"
+        @Edit="Edit"
       ></Mytable>
       <!-- 表格区域 -->
       <!-- 分页区域 -->
@@ -67,7 +68,11 @@
       ></Page>
       <!-- 分页区域 -->
       <!-- 新增对话框 -->
-      <Dialog :visible.sync="AddDialogShow" @add-success="AddSuccess"></Dialog>
+      <Dialog
+        ref="edit"
+        :visible.sync="AddDialogShow"
+        @add-success="AddSuccess"
+      ></Dialog>
       <!-- 新增对话框 -->
     </el-card>
   </div>
@@ -114,6 +119,7 @@ export default {
   created() {
     this.list();
   },
+
   methods: {
     // 获取列表
     async list() {
@@ -171,6 +177,13 @@ export default {
       });
       this.$message.success("删除成功");
       this.list();
+    },
+    Edit(val) {
+      console.log(val);
+      // this.$store.state.subjects.state.EditInfo;
+      this.$store.dispatch("getEdit", val);
+      this.AddDialogShow = true;
+      this.$refs.edit.getEdit(val);
     },
   },
 };

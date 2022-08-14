@@ -1,5 +1,5 @@
 <template>
-  <el-dialog @close="onClose" title="提示" :visible="visible" width="22%">
+  <el-dialog @close="onClose" :title="showName" :visible="visible" width="22%">
     <!-- 表单区域 -->
     <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="学科名称" prop="name">
@@ -25,12 +25,15 @@
 </template>
 
 <script>
-import { add } from "@/api/hmmm/subjects";
+import { add, update } from "@/api/hmmm/subjects";
 export default {
   props: {
     visible: {
       type: Boolean,
       default: true,
+    },
+    val: {
+      type: Object,
     },
   },
   data() {
@@ -44,21 +47,42 @@ export default {
       },
     };
   },
+  computed: {
+    showName() {
+      return this.$store.state.subjects.EditInfo.id === undefined
+        ? "新增学科"
+        : "修改学科";
+    },
+  },
   methods: {
     onClose() {
       this.$emit("update:visible", false);
       this.$refs.form.resetFields();
     },
     async onSave() {
-      this.$refs.form.validate();
-      await add({
-        subjectName: this.form.name,
-        isFrontDisplay: this.form.value,
-      });
-      this.$message.success("操作成功");
+      await this.$refs.form.validate();
+      if (this.$store.state.subjects.EditInfo.id) {
+        await update({
+          id: this.$store.state.subjects.EditInfo.id,
+          subjectName: this.form.name,
+          isFrontDisplay: this.form.value,
+        });
+      } else {
+        await add({
+          subjectName: this.form.name,
+          isFrontDisplay: this.form.value,
+        });
+      }
 
+      this.$message.success("操作成功");
       this.onClose();
       this.$emit("add-success");
+    },
+    getEdit(val) {
+      console.log(this.$store.state.subjects.EditInfo.id);
+
+      this.form.name = val.subjectName;
+      return (this.form.value = val.isFrontDisplay === "是" ? 1 : 0);
     },
   },
 };
