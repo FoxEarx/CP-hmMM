@@ -158,7 +158,7 @@ export default {
     width: 100%;
     height: 212px;
     overflow: hidden;
-    top: 0;
+    bottom: 0;
     margin-top: 130px;
   }
 }

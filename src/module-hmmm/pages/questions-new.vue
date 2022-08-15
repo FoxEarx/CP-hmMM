@@ -243,7 +243,9 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <Baberrage></Baberrage>
+    <div class="baberrage">
+      <Baberrage></Baberrage>
+    </div>
   </div>
 </template>
 
@@ -558,5 +560,8 @@ export default {
       }
     }
   }
+}
+.baberrage{
+  height: 250px;
 }
 </style>
