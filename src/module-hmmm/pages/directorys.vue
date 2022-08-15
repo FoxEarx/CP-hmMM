@@ -73,7 +73,7 @@ export default {
   }
   .left {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
   }
   .addButton {
     margin-left: 30px;
