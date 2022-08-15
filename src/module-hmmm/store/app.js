@@ -8,22 +8,29 @@
 
 const app = {
   state: {
-    name: ''
+    name: "",
+    EditInfo: {},
   },
   mutations: {
     SET_NAME: (state, name) => {
-      state.name = name
-    }
+      state.name = name;
+    },
+    setEditInfo: (state, payload) => {
+      state.EditInfo = payload;
+    },
   },
   actions: {
-    setName ({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+    setName({ commit }, userInfo) {
+      const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
-        commit('SET_NAME', username)
-        resolve()
-      })
-    }
-  }
-}
+        commit("SET_NAME", username);
+        resolve();
+      });
+    },
+    getEdit(context, payload) {
+      context.commit("setEditInfo", payload);
+    },
+  },
+};
 
-export default app
+export default app;
