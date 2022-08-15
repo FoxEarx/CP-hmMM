@@ -73,8 +73,9 @@ export default {
 .el-input--medium {
   width: 200px;
   height: 32px;
+  font-size: 13px;
 }
-::v-deep.el-input--medium .el-input__inner {
+:deep(.el-input--medium .el-input__inner) {
   height: 32px;
 }
 .el-button {

@@ -9,7 +9,7 @@
     >
       <template #body>
         <el-alert
-          title="消息提示的文案"
+          :title="`共${usersData.counts}条记录`"
           type="info"
           :closable="false"
           show-icon
@@ -114,6 +114,13 @@ export default {
             required: true,
             message: "密码不能为空",
             trigger: "blur",
+          },
+        ],
+        permission_group_id: [
+          {
+            required: true,
+            message: "权限不能为空",
+            trigger: "change",
           },
         ],
       },
