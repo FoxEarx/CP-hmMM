@@ -511,7 +511,7 @@ export default {
   .el-checkbox-group {
     display: inline-block;
   }
-  /deep/.el-checkbox__label {
+  :deep(.el-checkbox__label) {
     display: inline-block;
     padding-left: 10px;
     line-height: 19px;
@@ -522,10 +522,10 @@ export default {
     margin-right: 10px;
   }
   padding: 20px;
-  /deep/.option-item {
+  :deep(.option-item) {
     padding-bottom: 20px;
   }
-  /deep/.ql-editor {
+  :deep(.ql-editor) {
     height: 200px;
   }
   .avatar-uploader {
@@ -541,7 +541,7 @@ export default {
       font-size: 18px;
       color: #999;
     }
-    /deep/.el-upload {
+    :deep(.el-upload) {
       border: 1px dashed #d9d9d9;
       border-radius: 6px;
       cursor: pointer;
@@ -561,7 +561,7 @@ export default {
     }
   }
 }
-.baberrage{
+.baberrage {
   height: 250px;
 }
 </style>
