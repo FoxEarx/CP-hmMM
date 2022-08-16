@@ -8,12 +8,14 @@
     highlight-current-row
     style="width: 100%"
   >
+    <slot name="selection" />
     <el-table-column
       v-for="(column, index) in columns"
       :key="column.prop"
       :width="column.width"
       :prop="column.prop"
       :label="column.text"
+      align="center"
     >
       <template slot-scope="scope">
         <expand
@@ -54,6 +56,7 @@
 <script>
 import Utils from "./utils/dataTranslate.js";
 import expand from "./utils/expand";
+import dayjs from "dayjs";
 export default {
   name: "treeTable",
   components: { expand },
@@ -94,6 +97,10 @@ export default {
     // 格式化数据源
     formatData: function () {
       const me = this;
+      me.data.forEach((item) => {
+        item.create_date = dayjs(item.create_date).format("YYYY-MM-DD");
+        console.log(item.create_date);
+      });
       if (me.treeStructure) {
         const data = Utils.treeToArray(
           me.data,
@@ -174,5 +181,9 @@ table td {
   color: #f56c6c;
   background: #fef0f0;
   border-color: #fbc4c4;
+}
+:deep(.has-gutter tr th) {
+  border-bottom: 2px solid #ebeef5 !important;
+  background-color: #fafafa;
 }
 </style>

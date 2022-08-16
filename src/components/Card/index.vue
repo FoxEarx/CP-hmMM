@@ -77,6 +77,7 @@ export default {
 }
 :deep(.el-input--medium .el-input__inner) {
   height: 32px;
+  font-size: 13px;
 }
 .el-button {
   margin-left: 15px;
