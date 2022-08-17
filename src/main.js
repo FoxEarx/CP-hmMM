@@ -13,12 +13,18 @@ import * as filters from "./filters"; // global filters
 import "./mock"; // simulation data
 // font-awesome
 import "font-awesome/css/font-awesome.css";
+import VueQuillEditor from "vue-quill-editor";
+
+import "quill/dist/quill.core.css"; // 引入样式
+import "quill/dist/quill.snow.css"; // snow theme
+import "quill/dist/quill.bubble.css"; // bubble theme
 /*
  * 注册 - 业务模块
  */
 import dashboard from "@/module-dashboard/"; // 面板
 import base from "@/module-manage/"; // 用户管理
 import hmmm from "@/module-hmmm/"; // 黑马面面
+
 Vue.use(dashboard, store);
 Vue.use(base, store);
 // Vue.use(list, store)
@@ -39,6 +45,8 @@ Vue.use(Element, {
 Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key]);
 });
+// 富文本编辑器quill
+Vue.use(VueQuillEditor /* { default global options } */);
 
 Vue.config.productionTip = false;
 

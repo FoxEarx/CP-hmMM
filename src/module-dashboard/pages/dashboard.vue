@@ -10,7 +10,7 @@
             </el-tooltip>
           </div>
           <div class="total">
-            ¥ 126,560
+            ¥126,560
           </div>
           <div class="trends">
             <span>周同比 12% <i class="el-icon-caret-top"></i></span>
