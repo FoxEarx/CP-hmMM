@@ -22,7 +22,7 @@
         <!-- 左侧区域 -->
 
         <!-- 右侧区域 -->
-        <el-col :offset="10" :span="2">
+        <el-col :offset="10" :span="2" class="right">
           <Button
             class="addButton"
             color="green"
@@ -123,7 +123,6 @@ export default {
   methods: {
     // 获取列表
     async list() {
-      this.tableData = [];
       this.loading = true;
       const res = await list({
         subjectName: this.InputSearch,
@@ -133,9 +132,10 @@ export default {
       console.log(res);
       this.counts = res.data.counts;
       const unList = res.data.items;
+      const todata = [];
       unList.forEach((item) => {
         const time = dayjs(item.addDate).format("YYYY-MM-DD");
-        this.tableData.push({
+        todata.push({
           subjectName: item.subjectName,
           creator: item.username,
           addDate: time,
@@ -147,7 +147,7 @@ export default {
         });
       });
 
-      console.log(this.tableData);
+      this.tableData = todata;
       this.loading = false;
     },
     newPage(val) {
@@ -202,6 +202,7 @@ export default {
   .left {
     display: flex;
   }
+
   .addButton {
     margin-left: 30px;
   }

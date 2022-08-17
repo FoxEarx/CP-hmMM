@@ -45,23 +45,27 @@ export default {
       rules: {
         name: [{ required: true, message: "请输入学科名称", target: blur }],
       },
+      isEdit: false,
     };
   },
   computed: {
     showName() {
-      return this.$store.state.subjects.EditInfo.id === undefined
-        ? "新增学科"
-        : "修改学科";
+      return this.form.name === "" ? "新增科目" : "修改科目";
     },
   },
   methods: {
     onClose() {
       this.$emit("update:visible", false);
       this.$refs.form.resetFields();
+      this.form = {
+        name: "",
+        value: 1,
+      };
+      this.isEdit = false;
     },
     async onSave() {
       await this.$refs.form.validate();
-      if (this.$store.state.subjects.EditInfo.id) {
+      if (this.isEdit) {
         await update({
           id: this.$store.state.subjects.EditInfo.id,
           subjectName: this.form.name,
@@ -79,8 +83,8 @@ export default {
       this.$emit("add-success");
     },
     getEdit(val) {
+      this.isEdit = true;
       console.log(this.$store.state.subjects.EditInfo.id);
-
       this.form.name = val.subjectName;
       return (this.form.value = val.isFrontDisplay === "是" ? 1 : 0);
     },
