@@ -12,4 +12,4 @@ import { createAPI } from "@/utils/request";
 // 权限组列表
 
 export const getPermissionsApi = (data) =>
-  createAPI("/permissions", "GET", data);
+  createAPI("/permissions", "get", data);

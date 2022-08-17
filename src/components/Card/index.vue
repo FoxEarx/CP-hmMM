@@ -7,7 +7,7 @@
             <el-input
               @keyup.enter.native="$emit('search', input)"
               v-model="input"
-              placeholder="根据用户名搜索"
+              placeholder="倪铭峰"
             ></el-input>
             <el-button size="small" @click="clearInput">清空</el-button>
             <el-button
