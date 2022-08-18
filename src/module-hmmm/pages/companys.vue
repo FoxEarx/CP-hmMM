@@ -425,7 +425,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .pagination {
   margin-top: 10px;
   .pages {
@@ -433,7 +433,7 @@ export default {
     text-align: right;
   }
 }
-.cell {
+::v-deep .cell {
   justify-content: center;
 }
 .baberrage {
