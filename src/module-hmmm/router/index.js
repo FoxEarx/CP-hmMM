@@ -77,6 +77,7 @@ export default [
         component: _import("hmmm/pages/directorys"),
         name: "subjects-directorys",
         hidden: true,
+        meta: { title: "目录", noCache: true },
       },
       {
         path: "directorys",

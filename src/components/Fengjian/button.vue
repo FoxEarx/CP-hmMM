@@ -1,7 +1,7 @@
 <template>
   <div
     class="main"
-    :class="[color, fontColor]"
+    :class="[color, fontColor, noBorder]"
     :style="{ width: width + 'px' }"
     @click="$emit('isOn')"
   >
@@ -23,6 +23,9 @@ export default {
     width: {
       type: Number,
       default: 60,
+    },
+    noBorder: {
+      type: String,
     },
   },
   data() {
@@ -50,10 +53,16 @@ export default {
 .blue {
   background-color: #409eff;
 }
+.fonstBlue {
+  color: #6b9eff;
+}
 .fontWhite {
   color: #fff;
 }
 .green {
   background-color: #67c23a;
+}
+.noborder {
+  border: unset;
 }
 </style>
