@@ -5,7 +5,8 @@
       @searchlist="searchlist"
       @clear="clear"
       @getAllList="getAllList"
-    />
+      ><template> 新增技巧 </template></tInput
+    >
     <el-alert
       type="info"
       show-icon
@@ -96,7 +97,7 @@
 import dayjs from "dayjs"; //day插件
 import Dialog from "../components/fanzhiyi/articlesDialog.vue";
 import previewDialog from "../components/fanzhiyi/articlesDialog2.vue";
-import tInput from "../components/fanzhiyi/titleInput.vue"; // 头部input
+import tInput from "../components/fanzhiyi/articlesTitle.vue"; // 头部input
 import articlesLlist from "../components/fanzhiyi/articlesList.vue"; // 列表
 import { list, changeState, remove } from "@/api/hmmm/articles.js";
 import { status } from "@/api/hmmm/constants";

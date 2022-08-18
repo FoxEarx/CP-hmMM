@@ -6,7 +6,7 @@
           <el-input
             ref="id"
             v-model.trim="search"
-            placeholder="根据文章标题搜索"
+            placeholder="负责人：樊志毅"
             value=""
             clearable
           ></el-input>
@@ -31,8 +31,8 @@
     <el-col :span="6">
       <el-row type="flex" justify="end">
         <el-button type="success" icon="el-icon-edit" @click="add"
-          >新增目录</el-button
-        >
+          ><slot
+        /></el-button>
       </el-row>
     </el-col>
 
@@ -65,6 +65,7 @@ export default {
       search: "",
       visibleShowDialog: false, //新增文章弹出框
       dialogTitle: "",
+      joinState: "1",
     };
   },
   props: {
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     searchInput() {
-      console.log(this.tableData);
+      // console.log(this.tableData);
       const arr = [];
       if (this.search !== "" || this.value !== "") {
         this.tableData.filter((item) => {
@@ -90,7 +91,7 @@ export default {
           }
           this.$emit("searchlist", arr);
         });
-        console.log(this.search, this.value);
+        // console.log(this.search, this.value);
       } else {
         this.$message.error("请输入查询条件");
       }
