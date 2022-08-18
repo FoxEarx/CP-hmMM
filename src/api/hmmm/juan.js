@@ -13,28 +13,28 @@ export const optionsInfo = [
     label: "A",
     title: "",
     img: "",
-    isRight:false
+    isRight: false,
   },
   {
     value: 2,
     label: "B",
     title: "",
     img: "",
-    isRight:false
+    isRight: false,
   },
   {
     value: 3,
     label: "C",
     title: "",
     img: "",
-    isRight:false
+    isRight: false,
   },
   {
     value: 4,
     label: "D",
     title: "",
     img: "",
-    isRight:false
+    isRight: false,
   },
 ];
 
@@ -52,3 +52,20 @@ export const addOptionsInfo = [
   "N",
   "O",
 ];
+
+// 企业管理设置状态
+export const editState = (id, state) =>
+  createAPI(`/companys/${id}/${state}`, "post");
+
+// 企业管理修改
+export const updateCompany = (id, data) =>
+  createAPI(`/companys/${id}`, "put", data);
+
+export const getUpdateCompany = (id, params) =>
+  createAPI(`/companys/${id}`, "get", params);
+
+// 企业管理添加
+export const addCompany = (data) => createAPI("/companys", "post", data);
+
+// 企业管理删除
+export const delCompany = id => createAPI(`/companys/${id}`, 'delete')
