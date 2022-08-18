@@ -30,13 +30,22 @@
     </el-col>
     <el-col :span="6">
       <el-row type="flex" justify="end">
-        <el-button type="success" icon="el-icon-edit">新增目录</el-button>
+        <el-button type="success" icon="el-icon-edit" @click="add"
+          >新增目录</el-button
+        >
       </el-row>
     </el-col>
+
+    <Dialog
+      :visible.sync="visibleShowDialog"
+      @getAllList="getAllList"
+      :dialogTitle="dialogTitle"
+    />
   </el-row>
 </template>
 
 <script>
+import Dialog from "./articlesDialog.vue";
 export default {
   data() {
     return {
@@ -44,34 +53,62 @@ export default {
       value1: "",
       options: [
         {
-          value: 1,
+          value: "已启用",
           label: "启用",
         },
         {
-          value: "2",
+          value: "已禁用",
           label: "禁用",
         },
       ],
       value: "",
       search: "",
+      visibleShowDialog: false, //新增文章弹出框
+      dialogTitle: "",
     };
   },
-
+  props: {
+    tableData: {
+      type: Array,
+    },
+  },
   created() {},
-
+  components: {
+    Dialog,
+  },
   methods: {
     searchInput() {
+      console.log(this.tableData);
+      const arr = [];
       if (this.search !== "" || this.value !== "") {
-        this.$emit("inpVal", this.search, this.value);
+        this.tableData.filter((item) => {
+          if (
+            item.title.indexOf(this.search) !== -1 &&
+            item.state.indexOf(this.value) !== -1
+          ) {
+            arr.push(item);
+          }
+          this.$emit("searchlist", arr);
+        });
         console.log(this.search, this.value);
       } else {
         this.$message.error("请输入查询条件");
       }
     },
+    // 清除
     clearInput() {
-      console.log("清除");
+      if (this.search == "" && this.value == "") return;
       this.search = "";
       this.value = "";
+      this.$emit("clear");
+    },
+    // 新增文章
+    add() {
+      this.dialogTitle = "新增文章";
+      this.visibleShowDialog = true;
+    },
+    getAllList() {
+      this.$emit("getAllList");
     },
   },
 };

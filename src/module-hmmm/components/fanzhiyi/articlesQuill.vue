@@ -15,9 +15,7 @@
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
-
 import { quillEditor } from "vue-quill-editor";
-
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 
@@ -27,7 +25,7 @@ export default {
   },
   data() {
     return {
-      content: "<p>I am Example</p>",
+      content: "",
       editorOption: {
         modules: {
           syntax: {
@@ -48,13 +46,13 @@ export default {
   },
   methods: {
     onEditorBlur(quill) {
-      console.log("editor blur!", quill);
+      // console.log("editor blur!", quill);
     },
     onEditorFocus(quill) {
-      console.log("editor focus!", quill);
+      // console.log("editor focus!", quill);
     },
     onEditorReady(quill) {
-      console.log("editor ready!", quill);
+      // console.log("editor ready!", quill);
     },
   },
   computed: {
@@ -63,7 +61,7 @@ export default {
     },
   },
   mounted() {
-    console.log("输入内容", this.editor);
+    // console.log("输入内容", this.editor);
   },
 };
 </script>

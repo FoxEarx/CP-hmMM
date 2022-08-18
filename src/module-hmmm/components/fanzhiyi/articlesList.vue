@@ -15,13 +15,24 @@
           :label="item.label"
           min-width
         >
+          <template slot-scope="{ row }">
+            <div v-if="item.prop === 'title'">
+              <span>{{ row[item.prop] }}</span>
+              <span
+                class="el-icon-film video"
+                v-if="row.videoURL !== ''"
+                @click="playVideo"
+              ></span>
+            </div>
+            <template v-else>
+              <div>{{ row[item.prop] }}</div>
+            </template>
+          </template>
         </el-table-column>
         <!-- <el-table-column label="图片">
           <slot name="img"></slot>
         </el-table-column> -->
-        <el-table-column label="操作">
-          <slot name="operation"></slot>
-        </el-table-column>
+        <slot></slot>
       </el-table>
     </template>
   </div>
@@ -41,12 +52,15 @@ export default {
 
   methods: {
     currentId(row) {
-      console.log(row.state);
-      this.state = row.policyId;
+      // console.log(row);
+      this.state = row.state;
       this.order = row.orderNo;
       this.$emit("pushid", this.order);
-      this.$emit("state", row.state);
+      this.$emit("info", row);
       // this.$emit('delFn', this.state)
+    },
+    playVideo() {
+      this.$emit("playVideo");
     },
   },
   props: {
@@ -75,5 +89,10 @@ export default {
   font-weight: normal;
   color: #666;
   background-color: #f3f6fb;
+}
+.video {
+  cursor: pointer;
+  color: #00f;
+  padding-left: 7px;
 }
 </style>
