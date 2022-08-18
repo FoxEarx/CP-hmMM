@@ -9,6 +9,8 @@
       :page-size="Number(paginationPagesize)"
       :page-sizes="[10, 20, 30, 50]"
       layout="sizes, prev, pager, next, jumper"
+      @prev-click="$emit('prevClick')"
+      @next-click="$emit('nextClick')"
     >
     </el-pagination>
   </div>
@@ -35,9 +37,5 @@ export default {
 <style>
 .blue {
   color: #409eff;
-}
-.pages {
-  margin-top: 20px;
-  text-align: right;
 }
 </style>
