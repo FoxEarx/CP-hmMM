@@ -1,6 +1,6 @@
 <template>
   <div class="add-form">
-    <el-dialog :title="text + pageTitle" :visible.sync="dialogFormVisible">
+    <el-dialog :title="text" @close="onClose" :visible.sync="dialogFormVisible">
       <el-form
         :rules="ruleInline"
         ref="dataForm"
@@ -12,7 +12,7 @@
         <el-form-item :label="$t('table.username')" prop="title">
           <el-input v-model="formBase.title"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('table.powerDistriB')">
+        <el-form-item :label="$t('table.powerDistriB')" prop="treeData">
           <el-tree
             ref="treeMenu"
             :data="treeData"
@@ -27,7 +27,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleClose">{{ $t("table.cancel") }}</el-button>
-        <el-button type="primary" @click="handleAdd('formBase')">{{
+        <el-button type="primary" @click="handleAdd(formBase)">{{
           $t("table.confirm")
         }}</el-button>
       </div>
@@ -40,7 +40,7 @@ import { list } from "@/api/base/menus.js";
 let _this = [];
 export default {
   name: "usersAdd",
-  props: ["text", "pageTitle", "ruleInline"],
+  props: ["text", "ruleInline", "permissionsDetail"],
   data() {
     return {
       dialogFormVisible: false,
@@ -122,12 +122,17 @@ export default {
       this.dialogFormVisible = true;
     },
     // 弹层隐藏
-    dialogFormH() {
+    onClose() {
       this.dialogFormVisible = false;
+      this.handleResetForm();
+      this.$nextTick(() => {
+        this.$refs.dataForm.resetFields();
+      });
     },
     // 退出
     handleClose() {
       this.$emit("handleCloseModal");
+      this.onClose();
     },
     // 表单重置
     handleResetForm() {
@@ -139,6 +144,7 @@ export default {
     },
     // 编辑详情数据加载
     hanldeEditForm(objeditId) {
+      console.log(111);
       this.formBase.id = objeditId;
       var data = {
         id: objeditId,
@@ -164,6 +170,7 @@ export default {
     },
     // 表单提交
     handleAdd(object) {
+      this.$refs.dataForm.validate();
       // 读取完整节点
       const curPermissions = new Set();
       // function parse(nodes, selectedId) {
@@ -229,6 +236,8 @@ export default {
             };
             update(data).then(() => {
               this.$emit("newDataes", this.formBase);
+              this.onClose();
+              this.$message.success("修改权限成功");
             });
           } else {
             add({
@@ -236,6 +245,8 @@ export default {
               permissions: curPermis,
             }).then(() => {
               this.$emit("newDataes", this.formBase);
+              this.onClose();
+              this.$message.success("创建权限成功");
             });
           }
         } else {

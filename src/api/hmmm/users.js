@@ -13,4 +13,4 @@ import { createAPI } from "@/utils/request";
 export const getUsersListApi = (data) => createAPI("/users", "get", data);
 
 // 删除用户
-export const delUsersInfoApi = (id) => createAPI(`/users/${id}`, "DELETE");
+export const delUsersInfoApi = (id) => createAPI(`/users/${id}`, "delete");

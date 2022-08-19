@@ -109,6 +109,7 @@
               v-for="item in questionTypeInfo"
               :key="item.value"
               :label="item.value"
+              @change="questionTypeChange"
               >{{ item.label }}</el-radio
             >
           </template>
@@ -224,6 +225,8 @@
         </el-form-item>
         <el-form-item label="试题标签: ">
           <el-select
+            allow-create
+            filterable
             multiple
             v-model="formData.tags"
             placeholder="请选择试题标签"
@@ -400,6 +403,40 @@ export default {
       this.formData.questionType = 1;
       this.questionTypeInfo = questionType;
     },
+    questionTypeChange(val) {
+      if (val === 1) {
+        this.optionsInfo = [
+          {
+            value: 1,
+            label: "A",
+            title: "",
+            img: "",
+            isRight: false,
+          },
+          {
+            value: 2,
+            label: "B",
+            title: "",
+            img: "",
+            isRight: false,
+          },
+          {
+            value: 3,
+            label: "C",
+            title: "",
+            img: "",
+            isRight: false,
+          },
+          {
+            value: 4,
+            label: "D",
+            title: "",
+            img: "",
+            isRight: false,
+          },
+        ];
+      }
+    },
     // 难度
     getDifficultyList() {
       this.formData.difficulty = 1;
@@ -544,7 +581,7 @@ export default {
     :deep(.el-upload) {
       border: 1px dashed #d9d9d9;
       border-radius: 6px;
-      cursor: pointer;
+      // cursor: pointer;
       position: relative;
       width: 100px;
       height: 60px;

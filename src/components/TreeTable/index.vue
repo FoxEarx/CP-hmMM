@@ -99,7 +99,6 @@ export default {
       const me = this;
       me.data.forEach((item) => {
         item.create_date = dayjs(item.create_date).format("YYYY-MM-DD");
-        console.log(item.create_date);
       });
       if (me.treeStructure) {
         const data = Utils.treeToArray(

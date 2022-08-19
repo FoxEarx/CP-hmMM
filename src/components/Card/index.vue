@@ -4,7 +4,11 @@
       <el-row>
         <slot name="title-input">
           <el-col :span="12">
-            <el-input v-model="input" placeholder="根据用户名搜索"></el-input>
+            <el-input
+              @keyup.enter.native="$emit('search', input)"
+              v-model="input"
+              placeholder="倪铭峰"
+            ></el-input>
             <el-button size="small" @click="clearInput">清空</el-button>
             <el-button
               type="primary"
@@ -51,6 +55,7 @@ export default {
   },
 
   methods: {
+    // 清空功能
     clearInput() {
       this.input = "";
       this.$emit("clearInput");
