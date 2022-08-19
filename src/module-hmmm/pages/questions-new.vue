@@ -273,6 +273,7 @@ export default {
   },
   data() {
     return {
+      // 传进来的ID
       index: -1,
       formData: {
         subjectID: "",
