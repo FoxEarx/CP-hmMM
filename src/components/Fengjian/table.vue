@@ -104,7 +104,12 @@
           ><i class="el-icon-delete"></i
         ></el-button>
 
-        <el-button v-if="TYPE === 3" class="enter" type="text" size="small"
+        <el-button
+          v-if="TYPE === 3"
+          class="enter"
+          type="text"
+          size="small"
+          @click="choiceAdd(scope.row.id)"
           ><i class="el-icon-check"></i
         ></el-button>
       </template>
@@ -167,6 +172,19 @@ export default {
         .then(() => {
           console.log(val);
           this.$emit("Delete", val);
+        })
+        .catch(() => {});
+    },
+
+    choiceAdd(val) {
+      this.$confirm("此操作将该题目加入精选, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          console.log(val);
+          this.$emit("choiceAddCheck", val);
         })
         .catch(() => {});
     },

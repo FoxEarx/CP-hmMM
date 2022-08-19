@@ -11,6 +11,7 @@
           color="green"
           fontColor="fontWhite"
           :width="100"
+          @isOn="$router.push('new')"
           ><i class="el-icon-edit"></i> 新增试题</Button
         >
       </div>
@@ -225,6 +226,7 @@
         :TYPE="3"
         @Delete="Delete"
         @isEye="isEye"
+        @choiceAddCheck="choiceAddCheck"
       ></Mytable>
 
       <!-- 页码显示 -->
@@ -251,6 +253,7 @@ import { getUsersListApi } from "@/api/hmmm/users";
 import { twolist } from "@/api/hmmm/directorys";
 import { remove } from "@/api/hmmm/questions";
 import { detail } from "@/api/hmmm/questions";
+import { choiceAdd } from "@/api/hmmm/questions";
 import preview from "@/components/Fengjian/preview";
 import dayjs from "dayjs";
 import Button from "@/components/Fengjian/button";
@@ -522,6 +525,19 @@ export default {
         id: val,
       });
       this.$message.success("删除成功");
+      await this.list();
+      if (this.tableData.length === 0) {
+        this.page--;
+        this.list();
+      }
+    },
+    async choiceAddCheck(val) {
+      const res = await choiceAdd({
+        id: val,
+        choiceState: 1,
+      });
+      console.log(res);
+      this.$message.success("加入精选成功");
       this.list();
     },
   },

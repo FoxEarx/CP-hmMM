@@ -273,7 +273,11 @@ export default {
         id: val,
       });
       this.$message.success("删除成功");
-      this.list();
+      await this.list();
+      if (this.tableData.length === 0) {
+        this.page--;
+        this.list();
+      }
     },
     Edit(val) {
       this.$store.dispatch("getDirectorys", val);
