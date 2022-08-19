@@ -11,7 +11,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      input: "",
+    };
   },
 
   created() {},
@@ -39,7 +41,7 @@ export default {
 }
 .el-input--medium {
   height: 32px;
-  width: 305.75px;
+  width: 300px;
 }
 :deep(.el-input--medium .el-input__inner) {
   width: 100%;

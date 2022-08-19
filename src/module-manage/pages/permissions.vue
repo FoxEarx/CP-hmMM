@@ -172,4 +172,8 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.el-alert--info.is-light {
+  margin-bottom: 15px;
+}
+</style>
