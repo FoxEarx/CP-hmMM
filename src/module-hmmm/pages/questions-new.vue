@@ -224,6 +224,8 @@
         </el-form-item>
         <el-form-item label="试题标签: ">
           <el-select
+            allow-create
+            filterable
             multiple
             v-model="formData.tags"
             placeholder="请选择试题标签"
@@ -561,7 +563,7 @@ export default {
     }
   }
 }
-.baberrage{
+.baberrage {
   height: 250px;
 }
 </style>
