@@ -4,6 +4,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :page-sizes="[5, 10, 20, 50]"
+      :page-size="isSize"
       background
       layout="prev, pager, next, sizes,jumper"
       :total="total"
@@ -17,6 +18,10 @@ export default {
   props: {
     total: {
       type: Number,
+    },
+    isSize: {
+      type: Number,
+      default: 10,
     },
   },
   data() {

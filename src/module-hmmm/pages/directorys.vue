@@ -172,8 +172,6 @@ export default {
             state: item.state === 1 ? "已启用" : "已禁用",
             id: item.id,
             subjectID: item.subjectID,
-            isEdit: false, //是否可编辑
-            isForbid: true, //是否禁用
           });
         });
         this.tableData = todata;
@@ -200,8 +198,6 @@ export default {
             state: item.state === 1 ? "已启用" : "已禁用",
             id: item.id,
             subjectID: item.subjectID,
-            isEdit: false, //是否可编辑
-            isForbid: true, //是否禁用
           });
         });
         console.log(this.tableData);
@@ -329,9 +325,8 @@ export default {
     margin-left: 20px;
   }
   .addButton {
-    position: fixed;
-    // margin-left: 30px;
-    right: 1.9%;
+    position: absolute;
+    right: 0%;
   }
   .isAlert {
     height: 32px;

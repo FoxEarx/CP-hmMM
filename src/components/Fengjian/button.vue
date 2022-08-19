@@ -65,4 +65,7 @@ export default {
 .noborder {
   border: unset;
 }
+.red {
+  background-color: #f56c6c;
+}
 </style>
