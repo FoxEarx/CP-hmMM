@@ -71,11 +71,11 @@ export const chkType = [
   },
   {
     value: 1,
-    label: "通过",
+    label: "已审核",
   },
   {
     value: 2,
-    label: "拒绝",
+    label: "已拒绝",
   },
 ];
 
@@ -90,3 +90,9 @@ export const publishType = [
     label: "已下架",
   },
 ];
+
+export const getEnumByValue = (enumList, value) => {
+  return enumList.find((el) => {
+    return el.value === value;
+  });
+};

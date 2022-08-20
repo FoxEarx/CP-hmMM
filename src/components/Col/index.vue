@@ -1,9 +1,7 @@
 <template>
   <el-col :span="6">
     <el-form-item :label="label">
-      <slot>
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
-      </slot>
+      <slot> </slot>
     </el-form-item>
   </el-col>
 </template>
@@ -11,9 +9,7 @@
 <script>
 export default {
   data() {
-    return {
-      input: "",
-    };
+    return {};
   },
 
   created() {},
