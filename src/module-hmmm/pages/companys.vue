@@ -59,7 +59,11 @@
             ></el-col>
             <el-col :span="6">
               <el-form-item label="状态" size="small">
-                <el-select placeholder="请选择" v-model="formData.state">
+                <el-select
+                  placeholder="请选择"
+                  v-model="formData.state"
+                  style="width: 100%"
+                >
                   <el-option
                     v-for="item in statusInfo"
                     :key="item.value"
@@ -420,12 +424,13 @@ export default {
         shortName: "",
         tags: "",
       };
+      this.getCompanyList();
     },
   },
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .pagination {
   margin-top: 10px;
   .pages {
@@ -433,7 +438,7 @@ export default {
     text-align: right;
   }
 }
-.cell {
+::v-deep .cell {
   justify-content: center;
 }
 .baberrage {

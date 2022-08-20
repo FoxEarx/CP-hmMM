@@ -225,6 +225,8 @@
         </el-form-item>
         <el-form-item label="试题标签: ">
           <el-select
+            allow-create
+            filterable
             multiple
             v-model="formData.tags"
             placeholder="请选择试题标签"
@@ -271,6 +273,7 @@ export default {
   },
   data() {
     return {
+      // 传进来的ID
       index: -1,
       formData: {
         subjectID: "",

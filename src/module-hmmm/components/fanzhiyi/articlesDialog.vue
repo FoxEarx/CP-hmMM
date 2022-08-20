@@ -109,6 +109,7 @@ export default {
         this.$emit("update:visible", false);
     },
     async ensure() {
+      await this.$refs.form.validate();
       console.log(this.state);
       if (this.state == 1) {
         if (
