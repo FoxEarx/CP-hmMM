@@ -673,9 +673,7 @@ export default {
     // 预览弹层关闭
     previewClose() {
       this.previewDialog = false;
-      // this.previewInfo = {};
-      // this.options = [];
-      // this.checkList = [];
+      this.videoShow = false;
     },
     // 获取题目详情
     async getQuestionInfo() {
