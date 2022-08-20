@@ -27,7 +27,7 @@
             }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="code" label="权限点代码" width="1321">
+        <el-table-column prop="code" label="权限点代码" width="1270">
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="{ row }">
@@ -172,6 +172,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+/deep/.cell {
+  justify-content: initial;
+}
 .small-btn1 {
   width: 36px;
   height: 40px;
