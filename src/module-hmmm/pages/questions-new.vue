@@ -2,7 +2,7 @@
   <div class="container question-new">
     <el-card class="box-card" shadow="always">
       <div slot="header" class="clearfix">
-        <span>试题录入</span>
+        <span>{{ this.$route.query.id ? "试题修改" : "试题录入" }}</span>
       </div>
       <el-form
         ref="form"
@@ -242,7 +242,10 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSave">确认提交</el-button>
+          <el-button v-if="this.$route.query.id" type="success" @click="onEdit"
+            >确认修改</el-button
+          >
+          <el-button v-else type="primary" @click="onSave">确认提交</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -253,7 +256,7 @@
 </template>
 
 <script>
-import { add } from "@/api/hmmm/questions.js";
+import { add, update } from "@/api/hmmm/questions.js";
 import { simple } from "@/api/hmmm/subjects.js";
 import { list } from "@/api/hmmm/directorys.js";
 import {
@@ -267,6 +270,7 @@ import { direction, difficulty, questionType } from "@/api/hmmm/constants.js";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 import Baberrage from "../components/juan/baberrage.vue";
+import { detail } from "@/api/hmmm/questions";
 export default {
   components: {
     Baberrage,
@@ -292,6 +296,8 @@ export default {
         tags: "",
       },
       redioList: [],
+      FjredioList: [],
+      number: "",
       subJectInfo: [],
       catalodInfo: [],
       enterpriseInfo: [],
@@ -357,9 +363,99 @@ export default {
     this.getQuestionTypeList();
     this.getDifficultyList();
     this.getOptionsInfoList();
+    if (this.$route.query.id) {
+      this.detail();
+    }
   },
   mounted() {},
   methods: {
+    // 编辑功能 获得详细数据-------------------------------------
+    async detail() {
+      const res = await detail({
+        id: this.$route.query.id,
+      });
+      console.log("fj", res);
+      this.formData.subjectID = res.data.subjectID;
+      this.formData.catalogID = res.data.catalogID;
+      this.formData.enterpriseID = res.data.enterpriseID;
+      this.formData.province = res.data.province;
+      this.formData.city = res.data.city;
+      this.formData.direction = res.data.direction;
+      this.formData.questionType = parseInt(res.data.questionType);
+      this.formData.difficulty = parseInt(res.data.difficulty);
+      const Question = res.data.question.replace(/<[^>]*>/g, "");
+      this.formData.question = Question;
+      this.formData.videoURL = res.data.videoURL;
+      const Answer = res.data.answer.replace(/<[^>]*>/g, "");
+      this.formData.answer = Answer;
+      this.formData.remarks = res.data.remarks;
+      const a = res.data.tags;
+      const istags = a.split(",");
+      this.formData.tags = istags;
+      console.log(res.data.options);
+      this.number = res.data.number;
+      // const ab = res.data.options.filter((item) => {
+      //   return item.isRight === 1;
+      // });
+
+      this.redioList = res.data.options.map((v) => {
+        return {
+          label: v.code,
+          code: 1,
+          isRight: v.isRight,
+          img: v.img,
+          title: v.title,
+          id: v.id,
+          questionsID: v.questionsID,
+        };
+      });
+      this.FjredioList = this.redioList.map((v) => {
+        return {
+          code: v.label,
+          isRight: v.isRight,
+          img: v.img,
+          title: v.title,
+          id: v.id,
+          questionsID: v.questionsID,
+        };
+      });
+      this.optionsInfo = this.redioList;
+      console.log(this.redioList);
+    },
+    // 点击修改
+    async onEdit() {
+      await this.$refs.form.validate();
+      console.log(this.$refs.subjectSelect.label);
+      this.formData.tags = this.formData.tags.join(",");
+      this.formData.questionType = this.formData.questionType.toString();
+      this.formData.difficulty = this.formData.difficulty.toString();
+      const Theid = this.$route.query.id;
+      // const suName = this.catalodInfo.find((item) => {
+      //   return item.id === this.formData.catalogID;
+      // });
+      console.log("subJectInfo", suName);
+      await update({
+        id: parseInt(Theid),
+        answer: this.formData.answer,
+        question: this.formData.question,
+        province: this.formData.province,
+        city: this.formData.city,
+
+        catalogID: this.formData.catalogID,
+        subjectID: this.formData.subjectID,
+        difficulty: this.formData.difficulty,
+        direction: this.formData.direction,
+        enterpriseID: this.formData.enterpriseID,
+        options: this.FjredioList,
+        questionType: this.formData.questionType,
+        remarks: this.formData.remarks,
+        tags: this.formData.tags,
+        videoURL: this.formData.videoURL,
+        number: this.number,
+      });
+      this.$message.success("修改成功");
+      this.$router.go(-1);
+    },
     // 学科
     async getSubjectList() {
       const { data } = await simple();

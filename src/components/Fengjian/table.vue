@@ -36,7 +36,21 @@
           "
           >学科分类</el-button
         >
-        <el-button v-if="TYPE === 1" type="text" size="small"
+        <el-button
+          v-if="TYPE === 1"
+          type="text"
+          size="small"
+          @click="
+            $router.push({
+              path:
+                '/subjects/tags/?id=' +
+                scope.row.id +
+                '&' +
+                'name=' +
+                scope.row.subjectName,
+              params: { id: scope.row.id },
+            })
+          "
           >学科标签</el-button
         >
         <el-button
@@ -91,7 +105,17 @@
           ><i class="el-icon-view"></i
         ></el-button>
 
-        <el-button v-if="TYPE === 3" class="edit" type="text" size="small"
+        <el-button
+          v-if="TYPE === 3"
+          class="edit"
+          type="text"
+          size="small"
+          @click="
+            $router.push({
+              path: 'new/?id=' + scope.row.id,
+              params: { id: scope.row.id },
+            })
+          "
           ><i class="el-icon-edit"></i
         ></el-button>
 

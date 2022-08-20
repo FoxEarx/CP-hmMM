@@ -30,6 +30,10 @@
     </el-col>
     <el-col :span="6">
       <el-row type="flex" justify="end">
+        <div class="fjButton" @click="$emit('isOn')">
+          <slot class="istext" name="icon" />
+          <slot class="istext" name="text" />
+        </div>
         <el-button type="success" icon="el-icon-edit" @click="add"
           ><slot
         /></el-button>
@@ -96,7 +100,7 @@ export default {
     },
     // 新增文章
     add() {
-      this.$emit('AddTags')
+      this.$emit("AddTags");
     },
     getAllList() {
       this.$emit("getAllList");
@@ -129,5 +133,14 @@ export default {
 }
 .el-button--medium {
   padding: 8px 20px;
+}
+.fjButton {
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #409eff;
+  font-size: 12px;
+  cursor: pointer;
 }
 </style>

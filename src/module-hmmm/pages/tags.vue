@@ -1,5 +1,23 @@
 <template>
   <el-card class="box-card">
+    <!-- 显示路劲 -->
+    <div v-show="this.$route.query.id">
+      <div class="path">
+        学科管理 <i class="el-icon-arrow-right"></i> {{ queryId || 2 }}
+        <i class="el-icon-arrow-right"></i> 标签管理
+      </div>
+      <div class="solid"></div>
+    </div>
+    <!-- 显示路劲 -->
+    <!-- <Button
+      v-show="this.$route.query.id"
+      @isOn="Go"
+      fontColor="fonstBlue"
+      :width="80"
+      noBorder="noborder"
+      class="gorouter"
+      ><i class="el-icon-back"></i> 返回学科</Button
+    > -->
     <tInput
       ref="tInput"
       :tableData="tableData"
@@ -7,8 +25,12 @@
       @clear="clear"
       @getAllList="getAllList"
       @AddTags="AddTags"
-      ><template> 新增标签 </template></tInput
+      @isOn="Go"
     >
+      <template #text><i class="el-icon-back"></i> 返回学科</template>
+      <template> 新增标签 </template></tInput
+    >
+
     <el-alert
       type="info"
       show-icon
@@ -64,6 +86,7 @@
       :tableData="tableData"
       :Allinfo="Allinfo"
       @getAllList="getAllList"
+      @fjAllList="FjGetAllList"
     />
   </el-card>
 </template>
@@ -71,6 +94,7 @@
 <script>
 import dayjs from "dayjs"; //day插件
 import tInput from "../components/fanzhiyi/tagsTitle.vue"; // 头部input
+import Button from "@/components/Fengjian/button"; // -----------Fengjian
 import articlesLlist from "../components/fanzhiyi/articlesList.vue"; // 列表
 import tagsDialog from "../components/fanzhiyi/tagsDialog.vue";
 import { list, changeState, remove } from "@/api/hmmm/tags";
@@ -96,19 +120,63 @@ export default {
       dialogTitle: "", //弹出框名称
       AddTagsDialog: false, //新增弹出框
       optionsList: [],
+      queryId: "",
     };
   },
   components: {
     tInput,
     articlesLlist,
     tagsDialog,
+    Button,
   },
   created() {
-    this.getAllList();
+    if (this.$route.query.id) {
+      this.FjGetAllList();
+    } else {
+      this.getAllList();
+    }
 
     // console.log(row);
   },
   methods: {
+    // fj=============================================
+    Go() {
+      this.$router.go(-1);
+    },
+    async FjGetAllList() {
+      this.queryId = this.$route.query.id;
+      const res = await list({
+        page: this.pages.page,
+        pagesize: this.pages.pagesize,
+        subjectID: this.queryId,
+      });
+      console.log("fj", res);
+
+      this.total = res.data.counts;
+      // 处理
+      const formList = res.data.items.map((item) => {
+        // 处理state label
+        const str = status.find((el) => {
+          return el.value === item.state;
+        });
+
+        // 处理时间格式
+        const time = dayjs(item.addDate).format("YYYY.MM.DD hh:mm:ss");
+        // console.log(str);
+        return {
+          subjectName: item.subjectName,
+          tagName: item.tagName,
+          username: item.username,
+          addDate: time,
+          state: str.value === 0 ? "已禁用" : "已启用",
+          subjectID: item.subjectID,
+          id: item.id,
+        };
+      });
+      this.tableData = formList;
+      this.loading = false;
+    },
+    // fj=============================================
     // 获取文章列表
     async getAllList() {
       this.loading = true;
@@ -203,6 +271,23 @@ export default {
 <style scoped lang="less">
 .box-card {
   margin: 10px;
+  position: relative;
+  right: 0;
+  top: 0;
+}
+.gorouter {
+  position: absolute !important;
+  left: 85%;
+}
+.path {
+  padding-bottom: 15px;
+}
+
+.solid {
+  width: 100%;
+  height: 1px;
+  background-color: #ebeef5;
+  margin-bottom: 20px;
 }
 :deep(.el-link--inner) {
   padding-left: 5px;
