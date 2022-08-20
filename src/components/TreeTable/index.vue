@@ -195,4 +195,7 @@ table td {
 ::v-deep.el-table th.el-table__cell {
   background-color: #fafafa;
 }
+::v-deep.el-table .cell {
+  justify-content: center;
+}
 </style>

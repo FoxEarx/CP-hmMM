@@ -146,7 +146,9 @@
           :listLoading="listLoading"
         >
           <template slot-scope="{ row }">
-            <el-button type="text">预览</el-button>
+            <el-button type="text" @click="showPreviewDialog(row)"
+              >预览</el-button
+            >
             <el-button
               type="text"
               @click="checkDialogShow(row)"
@@ -209,6 +211,94 @@
         <el-button type="primary" @click="commitCheck">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 预览弹层 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="previewDialog"
+      width="50%"
+      @close="previewClose"
+    >
+      <el-row class="preview">
+        <el-col :span="6"
+          >【题型】： {{ previewInfo.questionTypeLabel }}题</el-col
+        >
+        <el-col :span="6">【编号】：{{ previewInfo.id }}</el-col>
+        <el-col :span="6">【难度】：{{ previewInfo.difficultyLabel }}</el-col>
+        <el-col :span="6">【标签】：{{ previewInfo.tags }}</el-col>
+        <el-col :span="6">【学科】：{{ previewInfo.subject }}</el-col>
+        <el-col :span="6">【目录】：{{ previewInfo.catalog }}</el-col>
+        <el-col :span="6">【方向】：{{ previewInfo.direction }}</el-col>
+      </el-row>
+      <hr />
+      【题干】：
+      <div v-html="previewInfo.question"></div>
+      <!-- 单选题 -->
+      <div>
+        <div
+          :style="{
+            paddingBottom: '8px',
+          }"
+        >
+          {{ previewInfo.questionTypeLabel }}题
+          选项：（以下选中的选项为正确答案）
+        </div>
+        <div>
+          <!-- 单选框 -->
+          <el-radio-group
+            v-model="previewRadio"
+            v-if="previewInfo.questionType === '1'"
+            onClick="return false"
+          >
+            <el-radio
+              v-for="item in options"
+              :key="item.id"
+              :label="item.isRight"
+              >{{ item.title }}</el-radio
+            >
+          </el-radio-group>
+          <!-- 多选框 -->
+          <el-checkbox-group
+            v-model="checkList"
+            v-if="previewInfo.questionType === '2'"
+            onClick="return false"
+          >
+            <div v-for="item in options" :key="item.id">
+              <el-checkbox :label="item.id" :checked="item.isRight === 1">{{
+                item.title
+              }}</el-checkbox>
+            </div>
+          </el-checkbox-group>
+        </div>
+        <hr />
+        <!-- 视频 -->
+        <div>
+          【参考答案】：
+          <el-button type="danger" size="small" @click="videoShow = true"
+            >视频答案预览</el-button
+          >
+          <div v-if="videoShow">
+            <video
+              :src="previewInfo.videoURL"
+              autoplay
+              controls="controls"
+              :style="{ width: '400px', height: '300px' }"
+            ></video>
+          </div>
+          <hr />
+          <!-- 答案解析 -->
+          <div :style="{ display: 'flex', alignItems: 'center' }">
+            【答案解析】：<span v-html="previewInfo.answer"></span>
+          </div>
+          <hr />
+          <!-- 题目备注 -->
+          <div>【题目备注】：{{ previewInfo.remarks }}</div>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="previewClose">关闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -225,6 +315,7 @@ import {
   choiceCheck,
   choicePublish,
   remove,
+  detail,
 } from "@/api/hmmm/questions.js";
 import { simple as subjectsSimple } from "@/api/hmmm/subjects.js";
 import {
@@ -243,7 +334,9 @@ export default {
   name: "choice",
   data() {
     return {
+      videoShow: false,
       listLoading: false,
+      checkList: [],
       // 审核弹层
       checkDialog: false,
       // 审核数据
@@ -253,6 +346,13 @@ export default {
         // 审核意见
         chkRemarks: "",
       },
+      // 预览弹层
+      previewDialog: false,
+      // 预览数据
+      previewInfo: {},
+      options: [],
+      previewRadio: 1,
+
       activeName: "",
       columns: [
         {
@@ -563,6 +663,26 @@ export default {
       const { data } = await creatorSimple();
       this.creator = data;
     },
+    // 点击预览显示弹层
+    showPreviewDialog(row) {
+      console.log(row);
+      this.previewDialog = true;
+      this.previewInfo = row;
+      this.getQuestionInfo();
+    },
+    // 预览弹层关闭
+    previewClose() {
+      this.previewDialog = false;
+      // this.previewInfo = {};
+      // this.options = [];
+      // this.checkList = [];
+    },
+    // 获取题目详情
+    async getQuestionInfo() {
+      const { data } = await detail(this.previewInfo);
+      console.log(data.options);
+      this.options = data.options;
+    },
   },
 
   components: {
@@ -604,5 +724,19 @@ export default {
 }
 :deep(.el-form-item__content) {
   margin-left: 0;
+}
+.preview {
+  .el-col-6 {
+    padding: 10px 0;
+  }
+}
+.el-radio-group,
+.el-checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+.el-radio,
+.el-checkbox {
+  padding: 10px 0;
 }
 </style>
