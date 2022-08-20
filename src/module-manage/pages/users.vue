@@ -194,6 +194,12 @@ export default {
         });
         await delUsersInfoApi(row.id);
         this.$message.success("成功删除了用户!");
+        if (
+          this.usersData.counts % this.usersData.pagesize === 1 &&
+          this.userInfo.page > 1
+        ) {
+          this.userInfo.page -= 1;
+        }
         this.getUserList();
       } catch (error) {}
     },

@@ -158,6 +158,12 @@ export default {
         });
         await remove(row);
         this.$message.success("删除成功");
+        if (
+          this.permissionsData.counts % this.permissionsData.pagesize &&
+          this.permissionsInfo.page > 1
+        ) {
+          this.permissionsInfo.page -= 1;
+        }
         this.getPermissions();
       } catch (error) {}
     },
@@ -172,4 +178,8 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.el-alert--info.is-light {
+  margin-bottom: 15px;
+}
+</style>
