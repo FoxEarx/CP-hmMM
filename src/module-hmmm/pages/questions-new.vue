@@ -401,7 +401,6 @@ export default {
       this.redioList = res.data.options.map((v) => {
         return {
           label: v.code,
-          code: 1,
           isRight: v.isRight,
           img: v.img,
           title: v.title,
