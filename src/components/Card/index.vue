@@ -2,7 +2,7 @@
   <el-card class="box-card">
     <el-form>
       <el-row>
-        <slot name="title-input">
+        <slot name="title">
           <el-col :span="12">
             <el-input
               @keyup.enter.native="$emit('search', input)"
@@ -17,18 +17,19 @@
               >搜索</el-button
             >
           </el-col>
-          <el-col :span="12">
-            <el-row type="flex" justify="end">
-              <el-button
-                type="success"
-                size="small"
-                icon="el-icon-edit"
-                @click="$emit('isShow')"
-                >{{ addText }}</el-button
-              >
-            </el-row>
-          </el-col>
         </slot>
+        <el-col :span="12">
+          <el-row type="flex" justify="end">
+            <el-button
+              type="success"
+              size="small"
+              icon="el-icon-edit"
+              @click="$emit('isShow')"
+              >{{ addText }}</el-button
+            >
+          </el-row>
+        </el-col>
+        <slot />
       </el-row>
     </el-form>
     <slot name="body" />

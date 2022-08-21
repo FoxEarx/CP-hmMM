@@ -7,6 +7,7 @@
     fit
     highlight-current-row
     style="width: 100%"
+    ref="cc"
   >
     <slot name="selection" />
     <el-table-column
@@ -16,6 +17,7 @@
       :prop="column.prop"
       :label="column.text"
       align="center"
+      min-width="200px"
     >
       <template slot-scope="scope">
         <expand
@@ -26,14 +28,14 @@
           :column="column"
         >
         </expand>
-        <span v-else>
+        <span v-else v-html="scope.row[column.value]">
           {{ scope.row[column.value] }}
         </span>
       </template>
     </el-table-column>
-    <el-table-column label="操作" width="260" align="center">
+    <el-table-column label="操作" width="260" align="center" fixed="right">
       <template slot-scope="scope">
-        <slot>
+        <slot :row="scope.row">
           <el-button
             @click="$emit('editUserInfo', scope.row)"
             type="primary"
@@ -184,5 +186,16 @@ table td {
 :deep(.has-gutter tr th) {
   border-bottom: 2px solid #ebeef5 !important;
   background-color: #fafafa;
+}
+.el-table {
+  th.el-table__cell {
+    background-color: red;
+  }
+}
+::v-deep.el-table th.el-table__cell {
+  background-color: #fafafa;
+}
+::v-deep.el-table .cell {
+  justify-content: center;
 }
 </style>

@@ -1,9 +1,7 @@
 <template>
   <el-col :span="6">
     <el-form-item :label="label">
-      <slot>
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
-      </slot>
+      <slot> </slot>
     </el-form-item>
   </el-col>
 </template>
@@ -39,7 +37,7 @@ export default {
 }
 .el-input--medium {
   height: 32px;
-  width: 305.75px;
+  width: 300px;
 }
 :deep(.el-input--medium .el-input__inner) {
   width: 100%;

@@ -71,6 +71,7 @@ export default {
         this.$emit("update:visible", false);
     },
     async ensure() {
+      // console.log(this.$route.query.id);
       await this.$refs.form.validate();
       if (this.state == 0) {
         if (
@@ -85,7 +86,11 @@ export default {
           await add(data);
           this.$message.success("新增标签成功");
           this.$emit("update:visible", false);
-          this.$emit("getAllList");
+          if (this.$route.query.id) {
+            this.$emit("fjAllList");
+          } else {
+            this.$emit("getAllList");
+          }
         } else {
           this.$message.error("请检查输入内容");
         }
