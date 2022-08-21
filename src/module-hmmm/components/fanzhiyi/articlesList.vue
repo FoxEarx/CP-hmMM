@@ -13,6 +13,7 @@
           :key="index"
           :prop="item.prop"
           :label="item.label"
+          :width="item.width"
           min-width
         >
           <template slot-scope="{ row }">
@@ -23,6 +24,15 @@
                 v-if="row.videoURL !== ''"
                 @click="playVideo"
               ></span>
+            </div>
+            <div v-else-if="item.prop === 'questionIDs'">
+              <el-link
+                :underline="false"
+                v-for="(item, index) in row.questionIDs"
+                :key="index"
+              >
+                {{ item.number }}
+              </el-link>
             </div>
             <template v-else>
               <div>{{ row[item.prop] }}</div>
@@ -94,5 +104,8 @@ export default {
   cursor: pointer;
   color: #00f;
   padding-left: 7px;
+}
+:deep(.el-link--inner) {
+  color: rgb(0, 153, 255);
 }
 </style>
