@@ -295,6 +295,8 @@ export default {
         remarks: "",
         tags: "",
       },
+      isvalue: 1,
+      directoryName: "",
       redioList: [],
       FjredioList: [],
       number: "",
@@ -371,6 +373,7 @@ export default {
   methods: {
     // 编辑功能 获得详细数据-------------------------------------
     async detail() {
+      this.optionsInfo = [];
       const res = await detail({
         id: this.$route.query.id,
       });
@@ -394,20 +397,28 @@ export default {
       this.formData.tags = istags;
       console.log(res.data.options);
       this.number = res.data.number;
-      // const ab = res.data.options.filter((item) => {
-      //   return item.isRight === 1;
-      // });
-
+      const { data } = await list({ subjectID: this.formData.subjectID });
+      this.catalodInfo = data.items;
+      console.log("o", this.optionsInfo);
       this.redioList = res.data.options.map((v) => {
         return {
           label: v.code,
-          isRight: v.isRight,
+          isRight: v.isRight === 1 ? true : false,
+          value: this.isvalue++,
           img: v.img,
           title: v.title,
-          id: v.id,
-          questionsID: v.questionsID,
         };
       });
+      const isRight = this.redioList.filter((item) => {
+        return item.isRight === true;
+      });
+
+      console.log("is", isRight);
+      const IsvaluesInfo = isRight.map((item) => {
+        return item.value;
+      });
+      this.valuesInfo = IsvaluesInfo;
+      this.formData.options.code = isRight[0].value;
       this.FjredioList = this.redioList.map((v) => {
         return {
           code: v.label,
@@ -419,6 +430,8 @@ export default {
         };
       });
       this.optionsInfo = this.redioList;
+      this.isvalue = 0;
+      console.log("1", this.optionsInfo);
       console.log(this.redioList);
     },
     // 点击修改
@@ -429,10 +442,7 @@ export default {
       this.formData.questionType = this.formData.questionType.toString();
       this.formData.difficulty = this.formData.difficulty.toString();
       const Theid = this.$route.query.id;
-      // const suName = this.catalodInfo.find((item) => {
-      //   return item.id === this.formData.catalogID;
-      // });
-      console.log("subJectInfo", suName);
+
       await update({
         id: parseInt(Theid),
         answer: this.formData.answer,

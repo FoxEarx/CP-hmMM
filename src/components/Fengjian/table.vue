@@ -26,7 +26,7 @@
           @click="
             $router.push({
               path:
-                '/subjects/directorys/?id=' +
+                '/subjects/directorys?id=' +
                 scope.row.id +
                 '&' +
                 'name=' +
@@ -43,7 +43,7 @@
           @click="
             $router.push({
               path:
-                '/subjects/tags/?id=' +
+                '/subjects/tags?id=' +
                 scope.row.id +
                 '&' +
                 'name=' +
@@ -112,7 +112,7 @@
           size="small"
           @click="
             $router.push({
-              path: 'new/?id=' + scope.row.id,
+              path: '/questions/new?id=' + scope.row.id,
               params: { id: scope.row.id },
             })
           "
