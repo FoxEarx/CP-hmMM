@@ -3,27 +3,41 @@
     <div>
       <el-row :gutter="20" style="padding: 10px 0">
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【题型】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【题型】:{{ randomsInfo.questionType }}
+          </div></el-col
         >
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【编号】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【编号】:{{ randomsInfo.id }}
+          </div></el-col
         >
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【难度】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【难度】:{{ randomsInfo.difficulty }}
+          </div></el-col
         >
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【标签】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【标签】:{{ randomsInfo.tags }}
+          </div></el-col
         >
       </el-row>
       <el-row :gutter="20" style="padding: 10px 0">
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【学科】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【学科】:{{ randomsInfo.subjectID }}
+          </div></el-col
         >
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【目录】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【目录】:{{ randomsInfo.catalogID }}
+          </div></el-col
         >
         <el-col :span="6"
-          ><div class="grid-content bg-purple">【方向】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【方向】:{{ randomsInfo.direction }}
+          </div></el-col
         >
       </el-row>
     </div>
@@ -31,19 +45,25 @@
     <div>
       <el-row :gutter="20" style="padding: 10px 0">
         <el-col :span="24"
-          ><div class="grid-content bg-purple">【参考答案】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【参考答案】:{{ randomsInfo.videoURL }}
+          </div></el-col
         >
       </el-row>
       <hr />
       <el-row :gutter="20" style="padding: 10px 0">
         <el-col :span="24"
-          ><div class="grid-content bg-purple">【答案解析】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【答案解析】:{{ randomsInfo.answerID }}
+          </div></el-col
         >
       </el-row>
       <hr />
       <el-row :gutter="20" style="padding: 10px 0">
         <el-col :span="24"
-          ><div class="grid-content bg-purple">【题目备注】:</div></el-col
+          ><div class="grid-content bg-purple">
+            【题目备注】:{{ randomsInfo.remarks }}
+          </div></el-col
         >
       </el-row>
     </div>
@@ -54,7 +74,6 @@
 </template>
 
 <script>
-import { detail } from "@/api/hmmm/questions";
 export default {
   data() {
     return {};
@@ -64,14 +83,13 @@ export default {
       type: Boolean,
       required: true,
     },
+    randomsInfo: {
+      type: [String, Object],
+    },
   },
   created() {},
 
   methods: {
-    getRandoms() {
-      // const res =  detail(randomsID);
-      console.log("id", this.randomsID);
-    },
     onclose() {
       this.$emit("update:visible", false);
     },

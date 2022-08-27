@@ -49,7 +49,7 @@
       :Allinfo="Allinfo"
       @getAllList="getAllList"
     />
-    <randomsDialog :visible.sync="randomsDialog" />
+    <randomsDialog :visible.sync="randomsDialog" :randomsInfo="randomsInfo" />
   </el-card>
 </template>
 
@@ -87,6 +87,7 @@ export default {
       optionsList: [],
       str: "",
       randomsID: "",
+      randomsInfo: "",
     };
   },
   components: {
@@ -167,10 +168,11 @@ export default {
     randomsClick(val) {
       this.randomsID = val[0];
       this.randomsDialog = true;
-      // setTimeout(async () => {
-      //   const res = await detail(this.randomsID);
-      //   console.log(res);
-      // });
+      setTimeout(async () => {
+        const res = await detail(this.randomsID);
+        console.log(res);
+        this.randomsInfo = res;
+      });
     },
   },
 };
