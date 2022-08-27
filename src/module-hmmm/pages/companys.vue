@@ -406,13 +406,7 @@ export default {
     },
     // 搜索
     onSearchCompany() {
-      const searchInfo = {};
-      for (let k in this.formData) {
-        if (this.formData[k]) {
-          searchInfo[k] = this.formData[k];
-        }
-      }
-      const data = { ...searchInfo };
+      const data = { ...this.formData};
       this.getCompanyList(data);
     },
     // 清除
