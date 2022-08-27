@@ -26,6 +26,7 @@
                 v-model="form.subjectID"
                 placeholder="请选择"
                 class="select"
+                @visible-change="toShow"
               >
                 <el-option
                   v-loading="loading"
@@ -290,6 +291,7 @@ export default {
       details: [],
       TheTags: [],
       isSearch: false,
+      isRes: "",
       AddDialogShow: false,
       table: [
         { prop: "number", label: "试题编号" },
@@ -312,7 +314,7 @@ export default {
   created() {
     this.list();
     this.provinces();
-    this.simple();
+    // this.simple();
     this.getUsersListApi();
   },
   methods: {
@@ -404,6 +406,7 @@ export default {
         this.tableData = todata;
       } else {
         console.log(this.isSearch);
+
         const res = await list({
           page: this.page,
           pagesize: this.pagesize,
@@ -420,6 +423,7 @@ export default {
           subjectID: this.form.subjectID,
           catalogID: this.form.catalogID,
         });
+
         console.log(res);
         this.counts = res.data.counts;
         const unList = res.data.items;
@@ -455,6 +459,11 @@ export default {
       const res = await simple();
       this.tosimple = res.data;
       this.loading = false;
+    },
+    toShow(val) {
+      if (val) {
+        this.simple();
+      }
     },
     provinces() {
       const res = provinces();
@@ -513,6 +522,8 @@ export default {
         city: "",
         province: "",
       };
+      this.tosimple = [];
+      this.TheTwoLevelDirectory = [];
     },
     Search() {
       this.isSearch = true;

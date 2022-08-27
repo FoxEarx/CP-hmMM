@@ -30,7 +30,11 @@
     </el-col>
     <el-col :span="6">
       <el-row type="flex" justify="end">
-        <div class="fjButton" @click="$emit('isOn')">
+        <div
+          v-show="this.$route.query.id"
+          class="fjButton"
+          @click="$emit('isOn')"
+        >
           <slot class="istext" name="icon" />
           <slot class="istext" name="text" />
         </div>
