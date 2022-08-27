@@ -150,7 +150,7 @@
             ></el-input>
 
             <el-upload
-              :objectBind="item.value"
+              :bindIndex="item.value"
               style="margin-left: 4px"
               class="avatar-uploader"
               action="https://jsonplaceholder.typicode.com/posts/"
@@ -186,7 +186,7 @@
             ></el-input>
 
             <el-upload
-              :objectBind="item.value"
+              :bindIndex="item.value"
               style="margin-left: 4px"
               class="avatar-uploader"
               action="https://jsonplaceholder.typicode.com/posts/"
@@ -463,7 +463,7 @@ export default {
       }
     },
     handleAvatarSuccess(response, file, fileList, index) {
-      // console.log(this.optionsInfo);
+      console.log(URL.createObjectURL(file.raw));
       this.optionsInfo[index - 1].img = URL.createObjectURL(file.raw); //用来显示
     },
     // 新增试题
