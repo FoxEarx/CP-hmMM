@@ -30,6 +30,7 @@
                 :underline="false"
                 v-for="(item, index) in row.questionIDs"
                 :key="index"
+                @click="randomsClick(row.questionIDs)"
               >
                 {{ item.number }}
               </el-link>
@@ -71,6 +72,10 @@ export default {
     },
     playVideo() {
       this.$emit("playVideo");
+    },
+    randomsClick(row) {
+      // console.log(row.questionIDs[0].id);
+      this.$emit("randomsClick", row);
     },
   },
   props: {

@@ -19,6 +19,7 @@
       :table="table"
       v-loading="loading"
       @info="getAllinfo"
+      @randomsClick="randomsClick"
     >
       <el-table-column label="操作">
         <template>
@@ -48,6 +49,7 @@
       :Allinfo="Allinfo"
       @getAllList="getAllList"
     />
+    <randomsDialog :visible.sync="randomsDialog" />
   </el-card>
 </template>
 
@@ -56,8 +58,9 @@ import dayjs from "dayjs"; //day插件
 import Title from "../components/fanzhiyi/randomsTitle.vue"; // 头部input
 import articlesLlist from "../components/fanzhiyi/articlesList.vue"; // 列表
 import tagsDialog from "../components/fanzhiyi/tagsDialog.vue";
-import { randoms, removeRandoms } from "@/api/hmmm/questions";
+import { randoms, removeRandoms, detail } from "@/api/hmmm/questions";
 import { questionType } from "@/api/hmmm/constants";
+import randomsDialog from "../components/fanzhiyi/randomsDialog.vue";
 export default {
   data() {
     return {
@@ -80,14 +83,17 @@ export default {
       Allinfo: {},
       dialogTitle: "", //弹出框名称
       AddTagsDialog: false, //新增弹出框
+      randomsDialog: false, //主题信息弹出框
       optionsList: [],
       str: "",
+      randomsID: "",
     };
   },
   components: {
     Title,
     articlesLlist,
     tagsDialog,
+    randomsDialog,
   },
   created() {
     this.getAllList();
@@ -157,6 +163,14 @@ export default {
         await removeRandoms(this.Allinfo);
         await this.getAllList();
       });
+    },
+    randomsClick(val) {
+      this.randomsID = val[0];
+      this.randomsDialog = true;
+      // setTimeout(async () => {
+      //   const res = await detail(this.randomsID);
+      //   console.log(res);
+      // });
     },
   },
 };
