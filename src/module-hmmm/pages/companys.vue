@@ -411,14 +411,15 @@ export default {
     },
     // 清除
     onClearCompany() {
-      this.formData = {
+      (this.formData = {
         province: "",
         city: "",
         state: "",
         shortName: "",
         tags: "",
-      };
-      this.getCompanyList();
+      }),
+        (this.cityInfo = []),
+        this.getCompanyList();
     },
   },
 };
