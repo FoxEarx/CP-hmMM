@@ -56,6 +56,7 @@
         :row="row"
         :show="show"
         :father="father"
+        :idlist="idlist"
       ></MenuAdd>
     </el-card>
   </div>
@@ -81,6 +82,7 @@ export default {
       show: false,
       father: "",
       formData: {},
+      idlist: [],
     };
   },
 

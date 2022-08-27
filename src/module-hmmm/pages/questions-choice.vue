@@ -24,8 +24,7 @@
           >
           </el-option>
         </el-select>
-        ></Col
-      >
+      </Col>
       <Col label="二级目录">
         <el-select v-model="formData.catalogID" placeholder="请选择">
           <el-option
@@ -707,7 +706,7 @@ export default {
 }
 .el-select,
 .el-input {
-  width: 300px;
+  width: 330.25px;
 }
 :deep(.city) {
   .el-form-item__content {
