@@ -27,7 +27,7 @@
       @AddTags="AddTags"
       @isOn="Go"
     >
-      <template #text><i class="el-icon-back"></i> 返回学科</template>
+      <template #text ><i class="el-icon-back"></i> 返回学科</template>
       <template> 新增标签 </template></tInput
     >
 
