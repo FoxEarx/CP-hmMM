@@ -48,13 +48,13 @@ export default [
         name: "questions-new",
         meta: { title: "试题录入", noCache: true, icon: "component" },
       },
-      {
-        path: "new/?id=:id",
-        component: _import("hmmm/pages/questions-new"),
-        name: "questions-new",
-        hidden: true,
-        meta: { title: "试题录入", noCache: true, icon: "component" },
-      },
+      // {
+      //   path: "new/?id=:id",
+      //   component: _import("hmmm/pages/questions-new"),
+      //   name: "questions-new",
+      //   hidden: true,
+      //   meta: { title: "试题录入", noCache: true, icon: "component" },
+      // },
       {
         path: "randoms",
         component: _import("hmmm/pages/questions-randoms"),
@@ -80,24 +80,10 @@ export default [
         meta: { title: "学科", noCache: true, icon: "component" },
       },
       {
-        path: "/subjects/directorys/?id=:id&name=:name",
-        component: _import("hmmm/pages/directorys"),
-        name: "subjects-directorys",
-        hidden: true,
-        meta: { title: "目录", noCache: true },
-      },
-      {
         path: "directorys",
         component: _import("hmmm/pages/directorys"),
         name: "subjects-directorys",
         meta: { title: "目录", noCache: true, icon: "component" },
-      },
-      {
-        path: "/subjects/tags/?id=:id&name=:name",
-        component: _import("hmmm/pages/tags"),
-        name: "subjects-tags",
-        hidden: true,
-        meta: { title: "标签", noCache: true },
       },
       {
         path: "tags",
